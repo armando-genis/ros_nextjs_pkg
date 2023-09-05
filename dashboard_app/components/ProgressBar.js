@@ -20,8 +20,9 @@ const ProgressBar = ({ scrollContainer }) => {
     return (
         <div className="fixed top-0 left-0 z-50 w-full h-1">
             <div
-                className="h-full bg-[#E3E7D3] transition-all duration-500 ease-out" // Updated duration from 100 to 500
+                className="h-full bg-[#191D88] transition-all duration-500 ease-out" // Updated duration from 100 to 500
                 style={{ width: `${scroll}%` }}
+            // style={{ width: `${scroll}%` }}
             ></div>
         </div>
     );
