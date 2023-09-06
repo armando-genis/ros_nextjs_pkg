@@ -14,7 +14,21 @@ To deploy this project run
 ```
 this will automatically run `npm run dev` to deploy the page. 
 
+## Install
 
+```bash
+  sudo apt install ros-foxy-rosbridge-server
+
+
+```
+
+## Modules installed in the Nextjs app
+```bash
+  npm install roslib
+  npm install bufferutil utf-8-validate
+  npm install three-obj-loader
+
+```
 ## Documentation
 
 - [Worldview](https://webviz.io/worldview/#/)

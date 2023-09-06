@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 
 
-
 const HorizontalScrollPage = ({ children }) => {
     const containerRef = useRef(null);
 

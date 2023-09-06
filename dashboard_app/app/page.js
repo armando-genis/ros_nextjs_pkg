@@ -2,6 +2,7 @@ import Image from 'next/image'
 import HorizontalScrollPage from '../components/HorizontalScrollPage';
 import Header from '../components/Header';
 import Dashboard_ros from '../components/Dashboard_ros';
+
 export default function Home() {
   return (
     <div className='plus-jakarta-font'>
@@ -22,9 +23,9 @@ export default function Home() {
         </div>
 
 
-        <div className="section bg-[#000] z-[2]">
+        {/* <div className="section bg-[#000] z-[2]">
 
-        </div>
+        </div> */}
 
       </HorizontalScrollPage>
 

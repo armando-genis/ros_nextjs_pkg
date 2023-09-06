@@ -1,6 +1,7 @@
 import React from "react"
 import { WiDaySunnyOvercast } from "react-icons/wi";
 import { BsFillCarFrontFill } from "react-icons/bs";
+import RosComponent from "../data/RosComponent";
 
 export default function Header() {
     const d = new Date();
@@ -35,6 +36,9 @@ export default function Header() {
                         </div>
                         <div className="basis-3/4 flex flex-row bg-gray-300 rounded shadow-md w-full h-full p-3">
                             <div className=" basis-2/5 w-full h-full flex flex-row items-center justify-center">
+                                <di>
+                                    <RosComponent />
+                                </di>
                                 <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 ring-4 ring-indigo-700">
                                     <WiDaySunnyOvercast className=" absolute w-10 h-10" />
                                 </div>
@@ -68,18 +72,8 @@ export default function Header() {
                                             style={{ left: `calc(${20}% - 0.5rem)` }}
                                         ></div>
                                     </div>
-
-
-
-
-
-
-
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
