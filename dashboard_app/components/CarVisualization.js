@@ -5,7 +5,48 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 const ROSLIB = require('roslib');
 
 function CarVisualization() {
+
+
     const mountRef = useRef(null);
+
+    let vertices = [];
+    let colors = [];
+    const permanent = false;
+    const pointGeometry = useRef(new THREE.BufferGeometry()).current;
+
+    function base64ToArrayBuffer(base64) {
+        var binary_string = window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+
+    function processMessage(cloud) {
+        const buffer = base64ToArrayBuffer(cloud.data);
+        if (!permanent) {
+            vertices = [];
+            colors = [];
+        }
+        const color = new THREE.Color();
+        for (let i = 0; i <= buffer.byteLength - cloud.point_step; i += cloud.point_step) {
+            const data = new DataView(buffer);
+            vertices.push(
+                data.getFloat32(i, true),
+                data.getFloat32(i + 8, true),
+                data.getFloat32(i + 4, true)
+            );
+            color.setHSL(i / buffer.byteLength, 1, 0.5);
+            colors.push(color.r, color.g, color.b);
+        }
+        pointGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        pointGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+    }
+
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -16,8 +57,8 @@ function CarVisualization() {
         const height = mountRef.current.clientHeight;
 
         const camera = new THREE.PerspectiveCamera(90, width / height, 0.1, 1000);
-        camera.position.z = -4;
-        camera.position.y = Math.tan((45 * Math.PI) / 180) * Math.abs(camera.position.z);
+        camera.position.z = -7;
+        camera.position.y = Math.tan((30 * Math.PI) / 180) * Math.abs(camera.position.z);
         camera.lookAt(0, 0, 0);
         renderer.setSize(width, height);
 
@@ -27,7 +68,7 @@ function CarVisualization() {
         scene.add(axesHelper);
 
         // Add the directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 9);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
         directionalLight.position.set(0, 5, 0);
         scene.add(directionalLight);
 
@@ -43,9 +84,9 @@ function CarVisualization() {
         });
 
         // Create a geometry to hold all the points
-        const pointGeometry = new THREE.BufferGeometry();
-        const pointMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 });
+        const pointMaterial = new THREE.PointsMaterial({ size: 0.07, vertexColors: true });
         const pointCloud = new THREE.Points(pointGeometry, pointMaterial);
+        pointCloud.rotation.y = Math.PI / 2;
         scene.add(pointCloud);
 
 
@@ -60,52 +101,7 @@ function CarVisualization() {
         });
 
         listener.subscribe((message) => {
-            let base64String = message.data;
-            let rawBytes = Uint8Array.from(atob(base64String), c => c.charCodeAt(0));
-
-            // Step 2: Deserialize the Byte Array
-            let points = [];
-            let point_step = message.point_step;
-            let fields = message.fields;
-
-            for (let i = 0; i < rawBytes.length; i += point_step) {
-                let point = {};
-                fields.forEach(field => {
-                    let offset = field.offset;
-                    // Assuming datatype 7, which represents FLOAT32, we extract 4 bytes
-                    let bytesForField = rawBytes.slice(i + offset, i + offset + 4);
-                    let value = new Float32Array(bytesForField.buffer)[0];
-                    point[field.name] = value;
-                });
-                points.push(point);
-            }
-
-            // Convert the points to format suitable for Three.js BufferGeometry
-            const vertices = new Float32Array(points.length * 3);
-            const maxDistance = 10; // This is your threshold distance, adjust as needed
-            const origin = new THREE.Vector3(0, 0, 0); // Assuming you're measuring distance from the origin
-            let count = 0; // Keep track of how many points we've added
-            for (let i = 0; i < points.length; i++) {
-                if (isNaN(points[i].x) || isNaN(points[i].y) || isNaN(points[i].z)) {
-                    // console.error("NaN detected in point data", points[i]);
-                    continue; // Skip this point
-                }
-                let pointVec = new THREE.Vector3(points[i].x, points[i].y, points[i].z);
-                let distance = pointVec.distanceTo(origin);
-                if (distance <= maxDistance) {
-                    vertices[i * 3] = points[i].x;
-                    vertices[i * 3 + 1] = points[i].z;
-                    vertices[i * 3 + 2] = points[i].y;
-                    count++;
-                }
-            }
-
-            pointGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-            pointGeometry.computeBoundingSphere(); // This is important for correctly rendering the point cloud
-
-
-            // Now 'points' has the deserialized point cloud data
-            console.log(vertices); // This will log the deserialized points
+            processMessage(message);
         });
 
 
