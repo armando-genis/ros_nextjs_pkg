@@ -1,5 +1,5 @@
 import React from "react"
-
+import { WiDaySunnyOvercast } from "react-icons/wi";
 export default function Header() {
     return (
         <header className="fixed bottom-0 w-full z-10 ">
@@ -7,8 +7,9 @@ export default function Header() {
                 <div className="justify-center mx-auto w-7/12 bg-zinc-50/70 h-[5rem] border-4 rounded-lg border-zinc-100/50 shadow-2xl backdrop-blur-lg">
                     <div className="flex flex-row space-x-4 h-full">
                         <div className="basis-1/4">
-                            <div className="bg-gray-300 rounded shadow-md w-full h-full flex items-center justify-center">
+                            <div className="bg-gray-300 rounded shadow-md w-full h-full flex  flex-row items-center justify-center">
                                 <p>Clima</p>
+                                <WiDaySunnyOvercast />
                             </div>
                         </div>
                         <div className="basis-3/4 flex flex-row bg-gray-300 rounded shadow-md">

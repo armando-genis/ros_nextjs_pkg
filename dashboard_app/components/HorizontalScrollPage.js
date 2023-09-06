@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
-import Header from './Header';
-import ProgressBar from './ProgressBar';
+
 
 
 const HorizontalScrollPage = ({ children }) => {
