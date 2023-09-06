@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+const ROSLIB = require('roslib');
 
 function CarVisualization() {
     const mountRef = useRef(null);
@@ -26,10 +27,11 @@ function CarVisualization() {
         scene.add(axesHelper);
 
         // Add the directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 9);
         directionalLight.position.set(0, 5, 0);
         scene.add(directionalLight);
 
+        // Add the ambient light
         const gridHelper = new THREE.GridHelper(10, 10);
         scene.add(gridHelper);
 
@@ -39,6 +41,73 @@ function CarVisualization() {
             object.position.set(0, 0, -2);
             scene.add(object);
         });
+
+        // Create a geometry to hold all the points
+        const pointGeometry = new THREE.BufferGeometry();
+        const pointMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 });
+        const pointCloud = new THREE.Points(pointGeometry, pointMaterial);
+        scene.add(pointCloud);
+
+
+        const ros = new ROSLIB.Ros({
+            url: 'ws://localhost:9090'
+        });
+
+        const listener = new ROSLIB.Topic({
+            ros: ros,
+            name: '/points_raw',
+            messageType: 'sensor_msgs/PointCloud2'
+        });
+
+        listener.subscribe((message) => {
+            let base64String = message.data;
+            let rawBytes = Uint8Array.from(atob(base64String), c => c.charCodeAt(0));
+
+            // Step 2: Deserialize the Byte Array
+            let points = [];
+            let point_step = message.point_step;
+            let fields = message.fields;
+
+            for (let i = 0; i < rawBytes.length; i += point_step) {
+                let point = {};
+                fields.forEach(field => {
+                    let offset = field.offset;
+                    // Assuming datatype 7, which represents FLOAT32, we extract 4 bytes
+                    let bytesForField = rawBytes.slice(i + offset, i + offset + 4);
+                    let value = new Float32Array(bytesForField.buffer)[0];
+                    point[field.name] = value;
+                });
+                points.push(point);
+            }
+
+            // Convert the points to format suitable for Three.js BufferGeometry
+            const vertices = new Float32Array(points.length * 3);
+            const maxDistance = 10; // This is your threshold distance, adjust as needed
+            const origin = new THREE.Vector3(0, 0, 0); // Assuming you're measuring distance from the origin
+            let count = 0; // Keep track of how many points we've added
+            for (let i = 0; i < points.length; i++) {
+                if (isNaN(points[i].x) || isNaN(points[i].y) || isNaN(points[i].z)) {
+                    // console.error("NaN detected in point data", points[i]);
+                    continue; // Skip this point
+                }
+                let pointVec = new THREE.Vector3(points[i].x, points[i].y, points[i].z);
+                let distance = pointVec.distanceTo(origin);
+                if (distance <= maxDistance) {
+                    vertices[i * 3] = points[i].x;
+                    vertices[i * 3 + 1] = points[i].z;
+                    vertices[i * 3 + 2] = points[i].y;
+                    count++;
+                }
+            }
+
+            pointGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+            pointGeometry.computeBoundingSphere(); // This is important for correctly rendering the point cloud
+
+
+            // Now 'points' has the deserialized point cloud data
+            console.log(vertices); // This will log the deserialized points
+        });
+
 
         const animate = () => {
             requestAnimationFrame(animate);
@@ -57,6 +126,7 @@ function CarVisualization() {
         animate();
 
         return () => {
+            listener.unsubscribe();
             window.removeEventListener('resize', handleResize);
             renderer.dispose();
         };

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 const ROSLIB = require('roslib');
 
+
 function RosComponent() {
     const [ros, setRos] = useState(null);
     const [connected, setConnected] = useState(false);
@@ -34,7 +35,7 @@ function RosComponent() {
             });
 
             pointCloudTopic.subscribe(function (message) {
-                console.log('Received message on /points_raw:', message);
+                // console.log('Received message on /points_raw:', message);
                 setPointCloudData(message);
             });
 
