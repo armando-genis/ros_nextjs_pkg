@@ -8,6 +8,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden; /* Prevent natural scrolling */
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .horizontal-scroll-wrapper {
@@ -26,4 +27,8 @@ body {
   width: 100vw;
   height: 100vh;
   flex-shrink: 0; /* Prevent sections from shrinking */
+}
+
+.plus-jakarta-font {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }

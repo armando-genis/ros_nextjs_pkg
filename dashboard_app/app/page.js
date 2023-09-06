@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Dashboard_ros from '../components/Dashboard_ros';
 export default function Home() {
   return (
-    <div>
+    <div className='plus-jakarta-font'>
 
       <HorizontalScrollPage>
         <Header />

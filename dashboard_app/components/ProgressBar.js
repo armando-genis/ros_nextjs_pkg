@@ -22,7 +22,7 @@ const ProgressBar = ({ scrollContainer }) => {
             <div
                 className="h-full bg-[#191D88] transition-all duration-500 ease-out" // Updated duration from 100 to 500
                 style={{ width: `${scroll}%` }}
-            // style={{ width: `${scroll}%` }}
+
             ></div>
         </div>
     );
