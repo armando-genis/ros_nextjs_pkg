@@ -1,6 +1,6 @@
 "use client"
 import { WiDaySunnyOvercast } from "react-icons/wi";
-import { BsFillCarFrontFill, BsFillPlayFill } from "react-icons/bs";
+import { BsFillCarFrontFill, BsFillPlayFill, BsFillSunFill } from "react-icons/bs";
 
 import React, { useState, useEffect } from 'react';
 
@@ -32,16 +32,16 @@ export default function Header() {
     return (
         <header className="fixed bottom-0 w-full z-10 ">
             <div className="container mx-auto py-7">
-                <div className="justify-center mx-auto w-7/12 bg-zinc-50/70 h-[7rem] border-2 rounded-lg border-zinc-100/50 shadow-2xl backdrop-blur-lg">
+                <div className="justify-center mx-auto w-7/12  h-[7rem]  rounded-lg border-zinc-100/50 shadow-2xl backdrop-blur-lg">
                     <div className="flex flex-row space-x-4 h-full">
-                        <div className="basis-1/4 bg-[#0b0b0c] rounded shadow-md w-full h-full p-3">
+                        <div className="basis-1/4 bg-[#0b0b0c] rounded shadow-md w-full h-full p-3 border-2 border-zinc-100/25">
                             <div className="flex flex-col items-center justify-center w-full h-full text-white">
-                                <h1 className="mt-[-1rem] font-bold text-[3rem]">{fullhour}</h1>
+                                <h1 className="mt-[-1rem] text-[#ff0005] font-bold text-[3rem]">{fullhour}</h1>
                                 <p className="mt-[-1rem] text-lg "> {fullDate}</p>
                             </div>
 
                         </div>
-                        <div className="basis-3/4 flex flex-row bg-[#0b0b0c] rounded shadow-md w-full h-full p-3">
+                        <div className="basis-3/4 flex flex-row bg-[#0b0b0c] rounded shadow-md w-full h-full p-3 border-2 border-zinc-100/25">
                             <div className="basis-2/5 w-full h-full flex flex-row">
 
                                 <div className="basis-1/2 h-full grid place-items-center relative">
@@ -76,7 +76,31 @@ export default function Header() {
 
 
                                 <div className="basis-1/2  h-full grid place-items-center">
-                                    <div className="h-[5rem] w-[5rem] bg-white"></div>
+                                    <div className="relative h-[5rem] w-[6rem] grid place-items-center">
+
+
+
+
+
+                                        <div className="absolute h-[5rem] w-[5rem] rounded-full border-[0.3rem] border-[#f59e0b] z-[12]"></div>
+
+                                        <div className="absolute h-[2.5rem] w-full bg-[#0b0b0c] bottom-0 z-[13]">
+
+                                            <div className="absolute h-[1rem] w-[1rem] bg-[#0b0b0c] left-0 z-[13]"></div>
+                                            <div className="absolute h-[0.5rem] w-[0.5rem] bg-[#f8fafc] left-1 z-[13] rounded-full"></div>
+
+                                            <div className="absolute h-[1rem] w-[1rem] bg-[#0b0b0c] right-0 z-[13]"></div>
+                                            <div className="absolute h-[0.5rem] w-[0.5rem] bg-[#f8fafc] right-1 z-[13] rounded-full"></div>
+                                        </div>
+
+                                        <div className="absolute h-[4rem] w-[3rem] bottom-0 z-[13] grid place-items-center">
+                                            <h1 className="font-bold text-lg text-[#f8fafc]"> 25°c</h1>
+                                            <BsFillSunFill className="w-7 h-7 text-[#f59e0b]" />
+                                        </div>
+
+
+
+                                    </div>
                                 </div>
 
                                 {/* <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 ring-4 ring-indigo-700">

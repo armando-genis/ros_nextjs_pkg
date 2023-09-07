@@ -27,6 +27,8 @@ export default function Dashboard_ros() {
             <div className="bg-[#0b0b0c] bg-opacity-50 p-4 rounded shadow-md flex flex-col relative overflow-hidden height-auto text-foreground box-border backdrop-blur-md rounded-lg saturate-100 z-[3] ">
                 <p className="text-white">Card text one</p>
 
+
+
             </div>
 
             <div className="bg-[#0b0b0c] bg-opacity-50 p-4 rounded shadow-md flex flex-col relative overflow-hidden height-auto text-foreground box-border backdrop-blur-md rounded-lg saturate-100 z-[3]">
