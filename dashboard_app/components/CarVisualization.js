@@ -57,36 +57,39 @@ function CarVisualization() {
         const height = mountRef.current.clientHeight;
 
         const camera = new THREE.PerspectiveCamera(90, width / height, 0.1, 1000);
-        camera.position.z = -7;
-        camera.position.y = Math.tan((30 * Math.PI) / 180) * Math.abs(camera.position.z);
-        camera.lookAt(0, 0, 0);
+        camera.position.z = -4;
+        // camera.position.y = Math.tan((35 * Math.PI) / 180) * Math.abs(camera.position.z);
+        camera.position.y = Math.tan((35 * Math.PI) / 180) * Math.abs(camera.position.z);
+
+        camera.lookAt(0, 0, 1);
         renderer.setSize(width, height);
 
         // Add the AxesHelper
-        const axesHelper = new THREE.AxesHelper(1);
-        axesHelper.position.set(-2, 0.2, -3.5);
-        scene.add(axesHelper);
+        // const axesHelper = new THREE.AxesHelper(1);
+        // axesHelper.position.set(-2, 0.2, -3.5);
+        // scene.add(axesHelper);
 
         // Add the directional light
         const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-        directionalLight.position.set(0, 5, 0);
+        directionalLight.position.set(-1, 5, 0);
         scene.add(directionalLight);
 
-        // Add the ambient light
-        const gridHelper = new THREE.GridHelper(10, 10);
+        // Add the grid helper
+        const gridHelper = new THREE.GridHelper(3, 4);
         scene.add(gridHelper);
 
         const objLoader = new OBJLoader();
         objLoader.load('/models/Car_Base_FR_Layout_Sups_low_poly.objFB285956-E578-486A-830C-770E083C1090.obj', (object) => {
             object.scale.set(1, 1, 0.8);
-            object.position.set(0, 0, -2);
+            object.position.set(0, 0, 0);
             scene.add(object);
         });
 
         // Create a geometry to hold all the points
-        const pointMaterial = new THREE.PointsMaterial({ size: 0.07, vertexColors: true });
+        const pointMaterial = new THREE.PointsMaterial({ size: 0.09, vertexColors: true });
         const pointCloud = new THREE.Points(pointGeometry, pointMaterial);
         pointCloud.rotation.y = Math.PI / 2;
+        pointCloud.position.set(0, 1, 0);
         scene.add(pointCloud);
 
 

@@ -33,3 +33,5 @@ this will automatically run `npm run dev` to deploy the page.
 
 - [Worldview](https://webviz.io/worldview/#/)
 - [tf2_web_republisher](https://github.com/RobotWebTools/tf2_web_republisher)
+https://ashishchaudhary.in/awesome-wasm
+http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html

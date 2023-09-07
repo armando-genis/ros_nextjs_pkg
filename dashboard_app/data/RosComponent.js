@@ -1,7 +1,5 @@
-"use client"
 import { useEffect, useState } from 'react';
 const ROSLIB = require('roslib');
-
 
 function RosComponent() {
     const [ros, setRos] = useState(null);
@@ -35,7 +33,6 @@ function RosComponent() {
             });
 
             pointCloudTopic.subscribe(function (message) {
-                // console.log('Received message on /points_raw:', message);
                 setPointCloudData(message);
             });
 
@@ -48,17 +45,7 @@ function RosComponent() {
         setRos(rosInstance);
     }, [connected]);
 
-    return (
-        <div>
-            {connected ? "Connected to ROS!" : "Not connected to ROS!"}
-            <div>
-                Last Point Cloud Data Timestamp:
-                {pointCloudData ? `${pointCloudData.header.stamp.sec}s ${pointCloudData.header.stamp.nanosec}ns` : "No data yet"}
-
-            </div>
-        </div>
-    );
+    return { connected, pointCloudData };
 }
 
 export default RosComponent;
-
