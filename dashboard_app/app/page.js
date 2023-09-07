@@ -13,8 +13,10 @@ export default function Home() {
         <div className="section bg-[#000] z-[1] relative">
           <div className="absolute inset-0 rounded-2xl [mask-image:linear-gradient(white,transparent)] inline-flex items-center justify-center z-[1]">
 
-            <div className="absolute w-[10rem] h-[10rem] bg-blue-600 blur-3xl right-1 bottom-1"></div>
+            {/* <div className="absolute w-[10rem] h-[10rem] bg-blue-600 blur-3xl right-1 bottom-1"></div> */}
             <div className="absolute w-[20rem] h-[20rem] bg-blue-600 blur-3xl top-1 left-1"></div>
+
+            <div className="absolute w-[20rem] h-[20rem] bg-[#73ff00] blur-3xl bottom-1 right-1"></div>
 
           </div>
 
