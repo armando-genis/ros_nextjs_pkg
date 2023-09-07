@@ -33,7 +33,7 @@ export default function Header() {
                         <div className="basis-3/4 flex flex-row bg-gray-300 rounded shadow-md w-full h-full p-3">
                             <div className=" basis-2/5 w-full h-full flex flex-row items-center justify-center">
 
-                                <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 ring-4 ring-indigo-700">
+                                <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 ring-4 ring-indigo-700">
                                     <WiDaySunnyOvercast className=" absolute w-10 h-10" />
                                 </div>
 

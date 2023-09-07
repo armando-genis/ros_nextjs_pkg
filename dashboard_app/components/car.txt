@@ -140,3 +140,24 @@ function CarVisualization() {
 }
 
 export default CarVisualization;
+
+
+
+        // const ros = new ROSLIB.Ros({
+        //     url: 'ws://localhost:9090'
+        // });
+
+        // const listener = new ROSLIB.Topic({
+        //     ros: ros,
+        //     name: '/points_raw',
+        //     messageType: 'sensor_msgs/PointCloud2'
+        // });
+
+        // listener.subscribe((message) => {
+        //     processMessage(message);
+        // });
+
+        // if (pointCloudData && pointCloudData.data) {
+        //     processMessage(pointCloudData);
+        //     console.log(pointCloudData);
+        // }

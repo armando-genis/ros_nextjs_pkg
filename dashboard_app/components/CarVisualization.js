@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 const ROSLIB = require('roslib');
 
-function CarVisualization() {
+function CarVisualization(props) {
+    const { pointCloudData } = props;
 
 
     const mountRef = useRef(null);
@@ -93,19 +94,19 @@ function CarVisualization() {
         scene.add(pointCloud);
 
 
-        const ros = new ROSLIB.Ros({
-            url: 'ws://localhost:9090'
-        });
+        // const ros = new ROSLIB.Ros({
+        //     url: 'ws://localhost:9090'
+        // });
 
-        const listener = new ROSLIB.Topic({
-            ros: ros,
-            name: '/points_raw',
-            messageType: 'sensor_msgs/PointCloud2'
-        });
+        // const listener = new ROSLIB.Topic({
+        //     ros: ros,
+        //     name: '/points_raw',
+        //     messageType: 'sensor_msgs/PointCloud2'
+        // });
 
-        listener.subscribe((message) => {
-            processMessage(message);
-        });
+        // listener.subscribe((message) => {
+        //     processMessage(message);
+        // });
 
 
         const animate = () => {
@@ -125,11 +126,18 @@ function CarVisualization() {
         animate();
 
         return () => {
-            listener.unsubscribe();
+            // listener.unsubscribe();
             window.removeEventListener('resize', handleResize);
             renderer.dispose();
         };
     }, []);
+
+    useEffect(() => {
+        if (pointCloudData && pointCloudData.data) {
+            processMessage(pointCloudData);
+        }
+
+    }, [pointCloudData]);
 
     return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />;
 }

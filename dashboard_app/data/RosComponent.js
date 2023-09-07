@@ -45,6 +45,7 @@ function RosComponent() {
         setRos(rosInstance);
     }, [connected]);
 
+
     return { connected, pointCloudData };
 }
 
