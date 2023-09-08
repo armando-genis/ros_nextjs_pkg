@@ -1,4 +1,4 @@
-# ros_nextjs_pkg
+## ros_nextjs_pkg
 ROS2 y next js 13 to deploy a dashboard. 
 
 
@@ -18,8 +18,8 @@ this will automatically run `npm run dev` to deploy the page.
 
 ```bash
   sudo apt install ros-foxy-rosbridge-server
-
-
+  sudo apt install nodejs
+  sudo apt install npm
 ```
 
 ## Modules installed in the Nextjs app
@@ -27,11 +27,16 @@ this will automatically run `npm run dev` to deploy the page.
   npm install roslib
   npm install bufferutil utf-8-validate
   npm install three-obj-loader
+  npm install three
+  npm i react-chartjs-2 chart.js
 
 ```
 ## Documentation
 
 - [Worldview](https://webviz.io/worldview/#/)
 - [tf2_web_republisher](https://github.com/RobotWebTools/tf2_web_republisher)
-https://ashishchaudhary.in/awesome-wasm
-http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html
+- [PointCloud2](https://ashishchaudhary.in/awesome-wasm)
+- [PointCloud2_2](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html)
+- [Three js](https://threejs.org/)
+
+

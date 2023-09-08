@@ -1,8 +1,8 @@
 "use client"
-import { WiDaySunnyOvercast } from "react-icons/wi";
 import { BsFillCarFrontFill, BsFillPlayFill, BsFillSunFill } from "react-icons/bs";
 
 import React, { useState, useEffect } from 'react';
+
 
 export default function Header() {
     const d = new Date();

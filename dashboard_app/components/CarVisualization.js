@@ -132,6 +132,7 @@ function CarVisualization(props) {
         };
     }, []);
 
+
     useEffect(() => {
         if (pointCloudData && pointCloudData.data) {
             processMessage(pointCloudData);
