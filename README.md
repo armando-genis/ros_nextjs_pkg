@@ -1,4 +1,5 @@
 ## ros_nextjs_pkg
+![alt text](https://github.com/armando-genis/ros_nextjs_pkg/blob/main/images_git/next_ros.png)
 ROS2 y next js 13 to deploy a dashboard. 
 
 
